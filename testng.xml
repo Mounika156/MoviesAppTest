@@ -1,0 +1,11 @@
+<suite name="Suite" thread-count ="5" parallel="tests">
+<test name = "Chrometest">
+    <parameter name ="OS" value="Windows"/>
+    <parameter name ="browser" value="chrome"/>
+    <classes>
+        <class name="LoginPagetest"/>
+        <class name="LoginPageTestVredintials"/>
+
+    </classes>
+</test>
+</suite>
