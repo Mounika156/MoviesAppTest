@@ -1,26 +1,25 @@
 
-    import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-    import org.openqa.selenium.support.ui.ExpectedConditions;
-    import org.openqa.selenium.support.ui.WebDriverWait;
-    import org.testng.Assert;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.LoginPage;
-import pages.MovieDetails;
-import pages.HomePage;
+import pages.AccountPage;
 import pages.HeaderSection;
+import pages.HomePage;
 
-    import java.time.Duration;
 
-    public class AccountPageTest {
+public class AccountPageTest {
 
         WebDriver driver;
         LoginPage lp;
-        MovieDetails md;
         HeaderSection hd;
         WebDriverWait wait;
+        AccountPage ap;
+        HomePage hp;
 
         @BeforeMethod
         public void setUp() {
@@ -29,29 +28,30 @@ import pages.HeaderSection;
             driver.get("https://qamoviesapp.ccbp.tech/login");
             lp = new LoginPage(driver);
             lp.loginToApp("rahul", "rahul@2021");
+            ap = new AccountPage(driver);
+            hp = new HomePage(driver);
+
         }
-
-
         @Test
         public void testMovieDetailsUIElements() {
+
             // Navigate to the movie details page
-            md.getMovieName();
+            hp.setClkMov();
+            System.out.println(ap.getTitle());
 
             // Verify UI elements
-            Assert.assertTrue(md.isMovieTitleDisplayed(), "Movie Name not displayed");
-            Assert.assertTrue(md.isMovieTitleDisplayed(),"Title not displayed");
-            Assert.assertTrue(md.isMovieDurationDisplayed(), "Time not displayed");
-            Assert.assertTrue(md.isMovieAudioDisplayed(), "Audio not displayed");
-            Assert.assertTrue(md.isMovieBudgetDisplayed(), "Budget not displayed");
-            Assert.assertTrue(md.setGenre(), "Genre not displayed");
-            Assert.assertTrue(md.setRatingcount(), "Rating not displayed");
+           Assert.assertTrue(ap.isTimeDisplayed(), "Time not displayed");
+            Assert.assertTrue(ap.isAudioDisplayed(), "Audio not displayed");
+            Assert.assertTrue(ap.isBudgetDisplayed(),"Budget not displayed");
+            Assert.assertTrue(ap.isGenreDisplayed(), "Genre not displayed");
+            Assert.assertTrue(ap.isRatingDisplayed(), "Rating not displayed");
         }
 
         @Test
         public void testLogoutFunctionality() {
             lp.setAccPage();
             lp.clickLogout();
-           // Assert.assertTrue(lp.isLoginDisplayed(), "Logout failed, login button not displayed");
+            Assert.assertTrue(lp.isLoginDisplayed(), "Logout failed, login button not displayed");
         }
 
         @AfterMethod
