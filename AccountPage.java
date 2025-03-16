@@ -9,35 +9,31 @@ import java.time.Duration;
 
 public class AccountPage {
 
-    public class MovieDetailsPage {
         WebDriver driver;
         WebDriverWait wait;
 
         // Locators for Movie Details Page Elements
-        By movieName = By.xpath("//h1[contains(@class, 'movie-name')]");
-         By title = By.xpath("//p[contains(@class, 'title')]");
-         By time = By.xpath("//span[contains(@class, 'time')]");
-         By audio = By.xpath("//span[contains(@class, 'audio')]");
-         By budget = By.xpath("//span[contains(@class, 'budget')]");
-         By genre = By.xpath("//span[contains(@class, 'genre')]");
-         By rating = By.xpath("//span[contains(@class, 'rating')]");
+         By title = By.cssSelector(".movie-title");
+         By time = By.cssSelector(".watch-time");
+         By audio = By.cssSelector(".audio-heading");
+         By budget = By.cssSelector(".budget-heading");
+         By genre = By.cssSelector(".genres-heading");
+         By rating = By.cssSelector(".rating-heading");
+        By clickMovie = By.xpath("//img[@alt='No Time to Die']");
 
-        public MovieDetailsPage(WebDriver driver) {
+
+        public AccountPage(WebDriver driver) {
             this.driver = driver;
             wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         }
 
-        public void navigateToMovieDetails() {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(movieName)).click();
+        public void clkMovie(){
+            wait.until(ExpectedConditions.elementToBeClickable(clickMovie)).click();
+        }
+        public String getTitle(){
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(title)).getText();
         }
 
-        public boolean isMovieNameDisplayed() {
-            return driver.findElement(movieName).isDisplayed();
-        }
-
-        public boolean isTitleDisplayed() {
-            return driver.findElement(title).isDisplayed();
-        }
 
         public boolean isTimeDisplayed() {
             return driver.findElement(time).isDisplayed();
@@ -58,6 +54,4 @@ public class AccountPage {
         public boolean isRatingDisplayed() {
             return driver.findElement(rating).isDisplayed();
         }
-    }
-
 }
